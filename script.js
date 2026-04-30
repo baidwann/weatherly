@@ -56,14 +56,39 @@ function displayWeather(data, locationLabel = data.name) {
 
   result.classList.remove("hidden");
 
+  let advice = "";
+
+  if (data.main.temp > 30) {
+    advice = "🥵 It's giving desert vibes. Hydrate or you're done for gang.";
+  } else if (data.main.temp < 5) {
+    advice = "🥶 Bro it's actually freezing. Wear layers or instant regret.";
+  } else if (condition.includes("rain")) {
+    advice = "☔ Yeah... it's raining. Umbrella = non-negotiable.";
+  } else if (condition.includes("snow")) {
+    advice = "❄️ Snow outside, roads might be sketchy, move smart.";
+  } else if (condition.includes("cloud")) {
+    advice = "☁️ Kinda gloomy but chill, perfect lazy day weather.";
+  } else {
+    advice = "😌 Weather's vibing. Go touch some grass son.";
+  }
+
+  const extras = [
+    " Stay safe tho.",
+    " Don't be dumb about it.",
+    " You’ve been warned.",
+    " Plan accordingly fr.",
+  ];
+
+  advice += extras[Math.floor(Math.random() * extras.length)];
+
   result.innerHTML = `
         <div class="main-weather">
             <div class="weather-icon">${icon}</div>
             <h2>${locationLabel}</h2>
             <p class="local-time">Local time: ${localTime}</p>
             <div class="temp">${Math.round(data.main.temp)}°C</div>
-            <p>${data.weather[0].description}</p>
-        </div>
+<p>${data.weather[0].description}</p>
+<p class="advice">${advice}</p>        </div>
 
         <div class="details">
             <div class="detail-box">
